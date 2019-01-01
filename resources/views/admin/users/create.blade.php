@@ -1,6 +1,11 @@
 @extends('layouts.admin')
 
 @section ('content')
+    @if($users)
+        @foreach($users as $user)
+            @endforeach
+        @endif
+
     <h1>Create Users </h1>
      {!! Form::open(['method'=>'POST','action'=>'AdminUsersController@store','files'=>true]) !!}
         {{csrf_field()}}

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\User;
+use Illuminate\Support\Facades\Session;
 
 class AdminUsersController extends Controller
 {
@@ -33,8 +34,9 @@ class AdminUsersController extends Controller
     public function create()
     {
         //
+        $users=User::all();
         $roles=Role::lists('name','id')->all();
-        return view('admin.users.create',compact('roles'));
+        return view('admin.users.create',compact('roles','users'));
     }
 
     /**
@@ -63,6 +65,7 @@ class AdminUsersController extends Controller
         }
 
         User::create($input);
+        Session::flash('Created_user','the user has been created');
        //User::create($input);
        return redirect('/admin/users');
 
@@ -111,7 +114,7 @@ class AdminUsersController extends Controller
             $input=$request->all();
             $input['password']=bcrypt($request->password);
         }
-        $input= $request->all();
+
         if($file=$request->file('photo_id'))
         {
             $name=time() .$file->getClientOriginalName();
@@ -121,6 +124,7 @@ class AdminUsersController extends Controller
 
         }
         $user->update($input);
+        Session::flash('Updated_user','the user has been updated');
         return redirect('admin/users');
 
 
@@ -136,5 +140,11 @@ class AdminUsersController extends Controller
     public function destroy($id)
     {
         //
+        $user=User::findOrFail($id);
+        unlink(public_path()."/images/".$user->photo->file);
+        $user->delete();
+        Session::flash('deleted_user','the user has been deleted');
+        
+       return  redirect('/admin/users');
     }
 }
