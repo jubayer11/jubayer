@@ -51,7 +51,7 @@
 
     {!! Form::close() !!}
 
-          {!! Form::open(['method'=>'DELETE','action'=>['AdminUsersController@destroy',$user->id]]) !!}
+          {!! Form::open(['method'=>'DELETE','action'=>['AdminUsersController@destroy',$user->id],'files'=>true]) !!}
               {{csrf_field()}}
 
           <div class="form-group">

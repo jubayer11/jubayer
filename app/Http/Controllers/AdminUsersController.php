@@ -134,15 +134,24 @@ class AdminUsersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
         //
         $user=User::findOrFail($id);
-        unlink(public_path()."/images/".$user->photo->file);
-        $user->delete();
+        if($request->file('photo_id')==''){
+            $input=$request->except('photo_id');
+        }
+        else{
+            $input=$request->all();
+            unlink(public_path()."/images/".$user->photo->file);
+
+        }
+
+        $user->delete($input);
         Session::flash('deleted_user','the user has been deleted');
         
        return  redirect('/admin/users');
