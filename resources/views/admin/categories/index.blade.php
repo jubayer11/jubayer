@@ -21,8 +21,7 @@
 
         {!! Form::close() !!}
 
-
-
+        @include('includes.form-error')
 
     </div>
     <div class="col-sm-6">
@@ -46,7 +45,6 @@
                         <td>{{$category->created_at ? $category->created_at->diffForHumans():"no date"}}</td>
                     </tr>
                 @endforeach
-
                 </tbody>
             </table>
         @endif
