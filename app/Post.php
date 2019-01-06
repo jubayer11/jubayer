@@ -26,6 +26,11 @@ public function user(){
     {
         return $this->belongsTo('App\Category');
     }
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
+
 
 
 }

@@ -27,6 +27,8 @@
 
               <th>Title</th>
               <th>body</th>
+              <th>View</th>
+              <th>View Comments</th>
               <th>Created_at</th>
               <th>Updated_at</th>
 
@@ -46,6 +48,8 @@
 
                    <td> {{$post->title}}</td>
                    <td>{{str_limit($post->body,1)}}</td>
+                   <td><a href="{{route('home.post',$post->id)}}">View Post</a></td>
+                   <td><a href="{{route('admin.comments.show',$post->id)}}">View Comments</a></td>
                    <td>{{$post->created_at->diffForhumans()}}</td>
                    <td> {{$post->updated_at->diffForhumans()}}</td>
                </tr>
