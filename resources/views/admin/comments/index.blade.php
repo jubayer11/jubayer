@@ -15,8 +15,10 @@
              <th>Email</th>
                <th>Comment body</th>
                <th>view</th>
+               <th>Replies link</th>
                <th>Approve/un-Approve</th>
                <th>deleting</th>
+
            </tr>
          </thead>
          <tbody>
@@ -27,7 +29,7 @@
                <td>{{$comment->email}}</td>
                <td>{{$comment->body}}</td>
                <td><a href="{{route('home.post',$comment->post->id )}}">VIEW POST</a> </td>
-
+               <td><a href="{{route('admin.comment.replies.show',$comment->id)}}">view Replies </a></td>
                <td>
 
                    @if($comment->is_active==1)

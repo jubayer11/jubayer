@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Comment;
 use App\Post;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -46,9 +47,10 @@ class PostCommentsController extends Controller
         $user=Auth::user();
         $data=[
             'post_id'=>$request->post_id,
+            'user_id'=>$user->id,
             'author'=>$user->name,
             'email'=>$user->email,
-            'photo'=>$user->photo['file'],
+            'photo_id'=>$user->photo_id,
             'body'=>$request->body,
             'is_active'=>$user->is_active
 
@@ -117,4 +119,8 @@ class PostCommentsController extends Controller
         Comment::findOrFail($id)->delete();
         return redirect()->back();
     }
+
+
+
+
 }
